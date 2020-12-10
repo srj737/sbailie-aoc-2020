@@ -33,7 +33,7 @@ def process_xmas_cipher(code, preamble_size):
 
 
 def find_contiguous_range(code, target):
-    found_it = False
+    contiguous, found_it = [], False
     for start_index, number in enumerate(code):
         contiguous = []
         for index in range(start_index, len(code)):
@@ -64,7 +64,7 @@ def day9_part2(code, preamble_size):
     contiguous = find_contiguous_range(code, target)
     smallest, largest, result = min(contiguous), max(contiguous), min(contiguous) + max(contiguous)
     logging.info(
-        'RESULT: The first invalid value, %d, can be reached by summing a contiguous range: %d - %d. They add to get '
+        'RESULT: The first invalid value, %d, can be reached by summing a contiguous range: %d -> %d. They add to get '
         'a result of: %d',
         target, smallest,
         largest, result)

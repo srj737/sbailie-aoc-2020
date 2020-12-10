@@ -51,7 +51,7 @@ def day8_part1(instructions):
 
 
 def day8_part2(instructions):
-    return_code = 0
+    return_code, accumulator = 0, 0
     while return_code != 1:  # (0 = 'Still Running'; 1 = 'Successfully Ended'; -1 = 'Infinite Run Stop')
         for i, instruction in enumerate(instructions):  # Test changing each instruction in the instructions list
             logging.debug('Testing possibly changing instruction: %d/%d', i, len(instructions))
