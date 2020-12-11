@@ -28,8 +28,8 @@ def day3_part2(array, array_of_slopes):
     return product
 
 
-test_array = ingest_file.dot_hash_matrix('test-input/day3.txt')
-array = ingest_file.dot_hash_matrix('input/day3.txt')
+test_array = ingest_file.char_matrix('test-input/day3.txt')
+array = ingest_file.char_matrix('input/day3.txt')
 
 x = day3_part1(test_array, part1_slope[0], part1_slope[1])
 if x != 7:

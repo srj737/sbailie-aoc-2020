@@ -14,7 +14,7 @@ def strings_on_lines(filename):
     return results
 
 
-def dot_hash_matrix(filename):
+def char_matrix(filename):
     results = []
     with open(filename, 'r') as infile:
         for line in infile:
