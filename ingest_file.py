@@ -33,18 +33,17 @@ def strings_separated_by_new_lines(filename):
         if lines.index(line) == 1167:
             a = 1
         if line == '\n' or lines.index(line) >= len(lines) - 1:
-            #New object
+            # New object
             result = result + str(line)
             results.append(result)
             result = ""
         else:
-            #Add to current object
+            # Add to current object
             result = result + str(line)
     finals = []
     for line in results:
         finals.append(line.replace('\n', ' ').strip())
     return finals
-
 
 
 def list_of_dicts(filename):
@@ -58,4 +57,18 @@ def list_of_dicts(filename):
             value = aspect.split(':')[1]
             single_dict[key] = value
         results.append(single_dict)
+    return results
+
+
+def string_seperated_by_seperator(filename, seperator):
+    line = strings_separated_by_new_lines(filename)[0].strip()
+    return line.split(seperator)
+
+
+def ints_seperated_by_seperator(filename, seperator):
+    line = strings_separated_by_new_lines(filename)[0].strip()
+    numbers = line.split(seperator)
+    results = []
+    for number in numbers:
+        results.append(int(number))
     return results
