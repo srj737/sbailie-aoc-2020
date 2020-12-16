@@ -72,3 +72,33 @@ def ints_seperated_by_seperator(filename, seperator):
     for number in numbers:
         results.append(int(number))
     return results
+
+
+def process_train_tickets(filename):
+    lines = strings_on_lines(filename)
+    rules, my_ticket, other_tickets = [], '', []
+    flag = 'Rules'
+    for line in lines:
+        line = line.strip()
+        if line != '':
+            if line == 'your ticket:':
+                flag = 'myTicket'
+            elif line == 'nearby tickets:':
+                flag = 'otherTickets'
+            else:
+                if flag == 'Rules':
+                    rules.append(line)
+                elif flag == 'myTicket':
+                    my_ticket = [int(i) for i in line.split(',')]
+                elif flag == 'otherTickets':
+                    other_tickets.append([int(i) for i in line.split(',')])
+    rules_dict = {}
+    for field in rules:
+        field_name = field.split(': ')[0]
+        ranges = field.split(': ')[1]
+        lower_range = ranges.split(' or ')[0]
+        upper_range = ranges.split(' or ')[1]
+        lower_range_lb, lower_range_ub = int(lower_range.split('-')[0]), int(lower_range.split('-')[1])
+        upper_range_lb, upper_range_ub = int(upper_range.split('-')[0]), int(upper_range.split('-')[1])
+        rules_dict[field_name] = [lower_range_lb, lower_range_ub, upper_range_lb, upper_range_ub]
+    return {'rules': rules_dict, 'my_ticket': my_ticket, 'other_tickets': other_tickets}
