@@ -53,14 +53,14 @@ def day15(starting_numbers, target):
 
 
 # Input Files
-test_input = ingest_file.ints_seperated_by_seperator('test-input/day15.txt', ',')
-test_input_extra1 = ingest_file.ints_seperated_by_seperator('test-input/day15-extra1.txt', ',')
-test_input_extra2 = ingest_file.ints_seperated_by_seperator('test-input/day15-extra2.txt', ',')
-test_input_extra3 = ingest_file.ints_seperated_by_seperator('test-input/day15-extra3.txt', ',')
-test_input_extra4 = ingest_file.ints_seperated_by_seperator('test-input/day15-extra4.txt', ',')
-test_input_extra5 = ingest_file.ints_seperated_by_seperator('test-input/day15-extra5.txt', ',')
-test_input_extra6 = ingest_file.ints_seperated_by_seperator('test-input/day15-extra6.txt', ',')
-main_input = ingest_file.ints_seperated_by_seperator('input/day15.txt', ',')
+test_input = ingest_file.ints_separated_by_separator('test-input/day15.txt', ',')
+test_input_extra1 = ingest_file.ints_separated_by_separator('test-input/day15-extra1.txt', ',')
+test_input_extra2 = ingest_file.ints_separated_by_separator('test-input/day15-extra2.txt', ',')
+test_input_extra3 = ingest_file.ints_separated_by_separator('test-input/day15-extra3.txt', ',')
+test_input_extra4 = ingest_file.ints_separated_by_separator('test-input/day15-extra4.txt', ',')
+test_input_extra5 = ingest_file.ints_separated_by_separator('test-input/day15-extra5.txt', ',')
+test_input_extra6 = ingest_file.ints_separated_by_separator('test-input/day15-extra6.txt', ',')
+main_input = ingest_file.ints_separated_by_separator('input/day15.txt', ',')
 
 # Test Input - Part 1
 if day15(test_input, TARGET_TURN_PART1) != 436:

@@ -60,12 +60,12 @@ def list_of_dicts(filename):
     return results
 
 
-def string_seperated_by_seperator(filename, seperator):
+def string_separated_by_separator(filename, separator):
     line = strings_separated_by_new_lines(filename)[0].strip()
-    return line.split(seperator)
+    return line.split(separator)
 
 
-def ints_seperated_by_seperator(filename, seperator):
+def ints_separated_by_separator(filename, seperator):
     line = strings_separated_by_new_lines(filename)[0].strip()
     numbers = line.split(seperator)
     results = []
