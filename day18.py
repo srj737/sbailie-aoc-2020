@@ -11,13 +11,25 @@ MULTIPLICATIVE_IDENTITY = 1
 ADDITIVE_IDENTITY = 0
 
 
-def solve_without_parenthesis(sum_string):
+# Precedence Systems:
+# - A value of 'A' will treat addition and multiplication equal; going left to right. (After parenthesis of course)
+# - A value of 'B' will prioritize and complete all addition BEFORE multiplication. (Again after parenthesis of course)
+
+
+def solve_without_parenthesis(sum_string, precedence_system):
     # Parenthesis wrapping start and end are allowed, but if so, remove them.
     if sum_string[0] == '(':
         sum_string = sum_string[1:]
     if sum_string[-1] == ')':
         sum_string = sum_string[:-1]
-    # Work left to right through the string
+    # If it's the second precedence system (i.e. part 2), then we complete all addition first.
+    if precedence_system == 'B':
+        while re.search('\+', sum_string):
+            index_of_first_add = re.search('\+', sum_string).start()
+            number_1 = int(re.search('[0-9]*$', sum_string[:index_of_first_add])[0])
+            number_2 = int(re.search('^[0-9]*', sum_string[index_of_first_add + 1:])[0])
+            sum_string = sum_string.replace(str(number_1) + '+' + str(number_2), str(number_1 + number_2))
+    # Now work left to right through the string
     values = []
     next_operation = ''
     while len(sum_string) > 0:
@@ -38,7 +50,7 @@ def solve_without_parenthesis(sum_string):
     return str(values[0])
 
 
-def calculate_sum(sum_string):
+def calculate_sum(sum_string, precedence_system):
     # Intro
     sum_string = sum_string.strip()
     sum_string = sum_string.replace(' ', '')
@@ -67,18 +79,18 @@ def calculate_sum(sum_string):
             if tracking_parenthesis[idx] < max_parenthesis and reached:
                 break  # We only care for the first at this level right now.
         sum_string = sum_string.replace(first_deepest_lvl_sub_string,
-                                        str(solve_without_parenthesis(first_deepest_lvl_sub_string)))
+                                        str(solve_without_parenthesis(first_deepest_lvl_sub_string, precedence_system)))
         # If we've solved all the issues with parenthesis and be can finally return the value. Else loop further.
         if '(' not in sum_string and ')' not in sum_string:
-            return solve_without_parenthesis(sum_string)
+            return solve_without_parenthesis(sum_string, precedence_system)
     return sum_string
 
 
-def day18(sums_array):
+def day18(sums_array, precedence_system):
     total_sum = 0
     results = []
     for line in sums_array:
-        value = int(calculate_sum(line))
+        value = int(calculate_sum(line, precedence_system))
         total_sum += value
         results.append(value)
     logging.info('RESULT: The final sum of all %d calculations is: %d', len(sums_array), total_sum)
@@ -90,25 +102,25 @@ test_input = ingest_file.strings_on_lines('test-input/day18.txt')
 main_input = ingest_file.strings_on_lines('input/day18.txt')
 
 # Test Input - Part 1
-if day18(test_input) != ([71, 51, 26, 437, 12240, 13632], 26457):
+if day18(test_input, 'A') != ([71, 51, 26, 437, 12240, 13632], 26457):
     raise Exception("FAIL: Part 1 Test FAILED!")
 else:
     logging.info("PASS: Part 1 Test PASSED")
 
 # Real Input - Part 1
-if day18(main_input)[1] != 24650385570008:
+if day18(main_input, 'A')[1] != 24650385570008:
     raise Exception("FAIL: Part 1 FAILED!")
 else:
     logging.info("PASS: Part 1 PASSED")
 
 # Test Input - Part 2
-# if day18(test_input) != 00000:
-#    raise Exception("FAIL: Part 2 Test FAILED!")
-# else:
-#    logging.info("PASS: Part 2 Test PASSED")
+if day18(test_input, 'B') != ([231, 51, 46, 1445, 669060, 23340], 694173):
+    raise Exception("FAIL: Part 2 Test FAILED!")
+else:
+    logging.info("PASS: Part 2 Test PASSED")
 
 # Real Input - Part 2
-# if day18(main_input) != 0000:
-#    raise Exception("FAIL: Part 2 FAILED!")
-# else:
-#    logging.info("PASS: Part 2 PASSED")
+if day18(main_input, 'B')[1] != 158183007916215:
+    raise Exception("FAIL: Part 2 FAILED!")
+else:
+    logging.info("PASS: Part 2 PASSED")
