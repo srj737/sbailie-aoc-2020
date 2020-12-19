@@ -102,3 +102,19 @@ def process_train_tickets(filename):
         upper_range_lb, upper_range_ub = int(upper_range.split('-')[0]), int(upper_range.split('-')[1])
         rules_dict[field_name] = [lower_range_lb, lower_range_ub, upper_range_lb, upper_range_ub]
     return {'rules': rules_dict, 'my_ticket': my_ticket, 'other_tickets': other_tickets}
+
+
+def process_rules_and_images(filename):
+    rules, images, temp = [], [], []
+    data = strings_on_lines(filename)
+    for line in data:
+        line = line.strip()
+        if line == '':
+            rules, temp = temp, []
+            continue
+        temp.append(line)
+    images = temp
+    rules_dict = {}
+    for idx, rule in enumerate(rules):
+        rules_dict[rule.split(': ')[0]] = rule.split(': ')[1].replace('\"', '').replace('\'', '')
+    return {'rules': rules_dict, 'images': images}
