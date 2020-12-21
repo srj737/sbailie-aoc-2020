@@ -25,21 +25,21 @@ def char_matrix(filename):
     return results
 
 
-def strings_separated_by_new_lines(filename):
+def strings_separated_by_new_lines(filename, mid_obj_separator=''):
     results = []
     lines = strings_on_lines(filename)
     result = ""
     for line in lines:
-        if lines.index(line) == 1167:
-            a = 1
         if line == '\n' or lines.index(line) >= len(lines) - 1:
             # New object
-            result = result + str(line)
+            result = result + mid_obj_separator + str(line)
             results.append(result)
             result = ""
         else:
             # Add to current object
             result = result + str(line)
+    if result != '':
+        results.append(result)
     finals = []
     for line in results:
         finals.append(line.replace('\n', ' ').strip())
@@ -118,3 +118,13 @@ def process_rules_and_images(filename):
     for idx, rule in enumerate(rules):
         rules_dict[rule.split(': ')[0]] = rule.split(': ')[1].replace('\"', '').replace('\'', '')
     return {'rules': rules_dict, 'images': images}
+
+
+def process_image_tiles(filename):
+    tile_array = strings_separated_by_new_lines(filename, ' ')
+    tile_dict = {}
+    for tile in tile_array:
+        tile_id = tile.split(': ')[0].replace('Tile ', '')
+        tile_rows = tile.split(': ')[1].split(' ')
+        tile_dict[tile_id] = tile_rows
+    return tile_dict
