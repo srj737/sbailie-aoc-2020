@@ -74,6 +74,14 @@ def ints_separated_by_separator(filename, seperator):
     return results
 
 
+def ints_on_single_line(filename):
+    line = strings_separated_by_new_lines(filename)[0].strip()
+    numbers = []
+    for number in line:
+        numbers.append(int(number))
+    return numbers
+
+
 def process_train_tickets(filename):
     lines = strings_on_lines(filename)
     rules, my_ticket, other_tickets = [], '', []
